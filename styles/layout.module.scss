@@ -1,12 +1,15 @@
 .nav {
-  padding: 16px;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
 }
+
 .nav > * {
-  border: 1px solid burlywood;
-  background-color: burlywood;
-  color: firebrick;
+  border: 1px solid #13aa52;
+  background-color: #13aa52;
+  color: white;
   border-radius: 5px;
-  padding-left: 30px;
+  padding: 5px;
 }
 
 .container {
@@ -89,6 +92,11 @@
   flex-wrap: wrap;
   max-width: 800px;
   margin-top: 3rem;
+}
+
+.header {
+  width: 100%;
+  margin: 16px;
 }
 
 .card {

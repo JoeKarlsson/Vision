@@ -13,24 +13,24 @@ const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the
 			<title>{title}</title>
 			<meta charSet="utf-8" />
 			<meta name="viewport" content="initial-scale=1, width=device-width" />
+			<link rel="manifest" href="/site.webmanifest" />
+			<meta name="theme-color" content="#13aa52" />
+
+			<link rel="apple-touch-icon" href="/favicon_io/icon.png" />
+			<link rel="icon" type="image/png" href="/favicon_io/icon.png" />
 		</Head>
-		<header>
+		<header className={styles.header}>
 			<nav className={styles.nav}>
-				<Link href="/">
-					<a>Home</a>
-				</Link>
-				<Link href="/login">
-					<a>Login / Create Hero</a>
-				</Link>
-				<Link href="/about">
-					<a>About</a>
-				</Link>
+				<Link href="/">Home</Link>
+				<Link href="/login">Login / Create Hero</Link>
+				<Link href="/about">About</Link>
 			</nav>
+			<hr />
 		</header>
 		<main className={styles.main}>{children}</main>
 		<footer className={styles.footer}>
 			<hr />
-			<span>I'm here to stay (Footer)</span>
+			<span>I&apos;m here to stay (Footer)</span>
 		</footer>
 	</div>
 )

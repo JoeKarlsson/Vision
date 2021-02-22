@@ -1,5 +1,6 @@
 import React from 'react'
 import styles from '../styles/layout.module.scss'
+import { motion } from 'framer-motion'
 import { connectToMongoDB } from '../utils/mongodb'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
@@ -43,13 +44,22 @@ export default function Home({ isConnected, hero }) {
 				))}
 			</ul>
 
-			<p className={styles.description}>
-				{isConnected ? (
-					<span>You are connected to mongodb</span>
-				) : (
-					<span>Something went wrong connecting to mongodb</span>
-				)}
-			</p>
+			{isConnected ? (
+				<motion.div
+					className={styles.description}
+					initial="hidden"
+					animate="visible"
+					variants={{
+						hidden: { opacity: 0 },
+						visible: { opacity: 1 },
+					}}
+				>
+					You are connected to mongodb
+				</motion.div>
+			) : (
+				<span>Something went wrong connecting to mongodb</span>
+			)}
+
 			<p className={styles.description}>
 				Click to learn:
 				<Link href="/about">
