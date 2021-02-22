@@ -1,90 +1,44 @@
 import React from 'react'
-import Head from 'next/head'
-import styles from '../styles/Home.module.css'
+import styles from '../styles/layout.module.scss'
 import { connectToMongoDB } from '../utils/mongodb'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 
 import useSwr from 'swr'
+import Layout from '../components/layout'
 
-const fetcher = (url) => fetch(url).then((res) => res.json())
+const fetcher = async (url) => await (await fetch(url)).json()
 
 export default function Home({ isConnected }) {
-	const { data, error } = useSwr('/api/users', fetcher)
+	const { data, error } = useSwr<{ _id: number }[]>('/api/heroes', fetcher)
 
-	if (error) return <div>Failed to load users</div>
+	if (error) return <div>Failed to load hero</div>
 	if (!data) return <div>Loading...</div>
 
 	return (
-		<div className={styles.container}>
+		<Layout title="Home | Next.js + TypeScript Example">
+			<h1 className={styles.title}>Vision 🦹‍♀️ 🦸 👋</h1>
+
 			<ul>
-				{data.map((user) => (
-					<li key={user._id}>
-						<Link href="/user/[id]" as={`/user/${user._id}`}>
-							<a>{`User ${user._id}`}</a>
-						</Link>
-					</li>
+				{data.map((hero) => (
+					<li key={hero._id}>{`Hero ${hero._id}`}</li>
 				))}
 			</ul>
 
-			<Head>
-				<title>Create Next App</title>
-				<link rel="icon" href="/favicon.ico" />
-			</Head>
-
-			<main className={styles.main}>
-				<h1 className={styles.title}>
-					Welcome to <a href="https://nextjs.org">Next.js!</a>
-				</h1>
-
+			<p className={styles.description}>
 				{isConnected ? (
-					<h2 className="subtitle">You are connected to MongoDB</h2>
+					<span>You are connected to mongodb</span>
 				) : (
-					<h2 className="subtitle">
-						You are NOT connected to MongoDB. Check the <code>README.md</code> for instructions.
-					</h2>
+					<span>Something went wrong connecting to mongodb</span>
 				)}
-
-				<p className={styles.description}>
-					Get started by editing <code className={styles.code}>pages/index.js</code>
-				</p>
-
-				<div className={styles.grid}>
-					<a href="https://nextjs.org/docs" className={styles.card}>
-						<h3>Documentation &rarr;</h3>
-						<p>Find in-depth information about Next.js features and API.</p>
-					</a>
-
-					<a href="https://nextjs.org/learn" className={styles.card}>
-						<h3>Learn &rarr;</h3>
-						<p>Learn about Next.js in an interactive course with quizzes!</p>
-					</a>
-
-					<a href="https://github.com/vercel/next.js/tree/master/examples" className={styles.card}>
-						<h3>Examples &rarr;</h3>
-						<p>Discover and deploy boilerplate example Next.js projects.</p>
-					</a>
-
-					<a
-						href="https://vercel.com/new?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-						className={styles.card}
-					>
-						<h3>Deploy &rarr;</h3>
-						<p>Instantly deploy your Next.js site to a public URL with Vercel.</p>
-					</a>
-				</div>
-			</main>
-
-			<footer className={styles.footer}>
-				<a
-					href="https://vercel.com?utm_source=create-next-app&utm_medium=default-template&utm_campaign=create-next-app"
-					target="_blank"
-					rel="noopener noreferrer"
-				>
-					Powered by <img src="/vercel.svg" alt="Vercel Logo" className={styles.logo} />
-				</a>
-			</footer>
-		</div>
+			</p>
+			<p className={styles.description}>
+				Click to learn:
+				<Link href="/about">
+					<a> About</a>
+				</Link>
+			</p>
+		</Layout>
 	)
 }
 

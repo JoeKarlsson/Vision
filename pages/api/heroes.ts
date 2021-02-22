@@ -1,4 +1,4 @@
-// Fake users data
+// Fake heroes data
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToMongoDB } from '../../utils/mongodb'
 
@@ -6,7 +6,7 @@ interface HeroData {
 	_id: number
 }
 
-const users = [{ _id: 1 }, { _id: 2 }, { _id: 3 }]
+const heroes = [{ _id: 1 }, { _id: 2 }, { _id: 3 }]
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse<HeroData[]>) {
 	// Get data from your database
@@ -18,5 +18,5 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	} catch (e) {
 		console.log(e)
 	}
-	res.status(200).json(users)
+	res.status(200).json(heroes)
 }
