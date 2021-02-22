@@ -1,26 +1,39 @@
 # Vision
 
+## Prerequisites
 
+- Node.js
+- Before you begin, you will need a MongoDB Atlas account. You can learn more about creating an Atlas account in the [Atlas Getting Started](https://docs.atlas.mongodb.com/getting-started/) documentation.
 
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 ## Getting Started
 
-First, run the development server:
+### 1. Clone example repository
 
-```bash
+```sh
+git clone git@github.com:JoeKarlsson/Vision.git
+cd Vision
+```
+
+### 2. Update Config
+
+Change `.env_EXAMPLE` to `.env` and paste in your MongoDB Atlas URI.
+
+### 3. Install Dependencies
+
+```sh
+npm install
+```
+
+### 4. Run the development server:
+
+```sh
 npm run dev
 # or
 yarn dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
-
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
-
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
 
 ## Learn More
 
