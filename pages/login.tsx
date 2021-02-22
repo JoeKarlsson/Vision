@@ -3,11 +3,13 @@ import Layout from '../components/layout'
 
 const LoginPage: React.FC = () => (
 	<Layout title="Login | Create your hero here!!">
-		<div>
-			<input type="text" placeholder="Your hero name..."></input>
-			<input type="text" placeholder="Your hero password..."></input>
+		<form action="api/login" method="POST">
+			<label htmlFor="name">Enter Hero Name:</label>
+			<input name="name" type="text" placeholder="Your hero name..."></input>
+			<label htmlFor="password">Enter Hero Password:</label>
+			<input name="password" type="text" placeholder="Your hero password..."></input>
 			<button type="submit">Create New Hero!</button>
-		</div>
+		</form>
 	</Layout>
 )
 

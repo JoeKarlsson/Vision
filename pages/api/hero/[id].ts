@@ -5,20 +5,34 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	const client = await connectToMongoDB()
 	const heroes = client.db('vision').collection('heroes')
 	const {
-		query: { _id, name },
+		query: { name, password },
 		method,
 	} = req
 
 	switch (method) {
-		case 'GET':
+		case 'GET': {
 			// Get data from your database
-			res.status(200).json({ _id, name: `Hero ${_id}` })
+			const hero = await heroes.findOne({ _id: name })
+
+			if (!hero) {
+				// There was no matching hero
+				return res.status(404).json({ message: `Hero ${name} not found` })
+			}
+
+			res.status(200).json(hero)
 			break
-		case 'POST':
+		}
+		case 'POST': {
 			// Update or create data in your database
-			const insertRes = await heroes.insertOne({ _id, name, password: 'password' })
-			res.status(200).json({ _id, name: name || `Hero: ${_id}`, insertRes })
+			try {
+				const insertRes = await heroes.insertOne({ _id: name, password })
+				res.status(200).json({ _id: name, insertRes })
+				return
+			} catch {
+				res.status(200).json({ _id: name, alreadyExists: true })
+			}
 			break
+		}
 		default:
 			res.setHeader('Allow', ['GET', 'POST'])
 			res.status(405).end(`Method ${method} Not Allowed`)
