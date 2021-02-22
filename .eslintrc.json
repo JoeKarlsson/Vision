@@ -1,0 +1,42 @@
+{
+    "root": true,
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2020
+    },
+    "plugins": [
+        "@typescript-eslint",
+        "prettier",
+        "react"
+    ],
+    "extends": [
+        "plugin:react/recommended",
+        "plugin:@typescript-eslint/eslint-recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:prettier/recommended"
+    ],
+    "env": {
+        "node": true,
+        "mocha": true,
+        "es6": true
+    },
+    "globals": {
+        "React": "writable"
+    },
+    "rules": {
+        "react/react-in-jsx-scope": "off",
+        "prettier/prettier": "error",
+        "no-restricted-syntax": [
+            "error",
+            {
+                "selector": "TSEnumDeclaration",
+                "message": "Don't declare enums"
+            }
+        ]
+    },
+    "settings": {
+        "react": {
+            "version": "17.0.1"
+        }
+    }
+}
