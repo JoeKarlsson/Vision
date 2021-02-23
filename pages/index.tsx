@@ -7,16 +7,14 @@ import Link from 'next/link'
 
 import useSwr from 'swr'
 import Layout from '../components/layout'
-import { Mission } from './api/missions'
+import { MissionData } from './api/missions'
 import { Hero } from './api/heroes'
 
 const fetcher = async (url) => await (await fetch(url)).json()
 
 export default function Home({ isConnected, hero }) {
 	const { data: heroesData, error: heroesError } = useSwr<Hero[]>('/api/heroes', fetcher)
-	const { data: missionsData, error: missionsError } = useSwr<Mission[]>('/api/missions', fetcher)
-
-	console.log(heroesData, missionsData)
+	const { data: missionsData, error: missionsError } = useSwr<MissionData[]>('/api/missions', fetcher)
 
 	if (heroesError || missionsError) return <div>Failed to load data `${heroesError}`</div>
 	if (!heroesData && !missionsData) return <div>Loading...</div>

@@ -2,7 +2,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToMongoDB } from '../../utils/mongodb'
 
-interface MissionData {
+export interface MissionData {
 	_id: number
 	description: string
 	isComplete: boolean
