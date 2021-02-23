@@ -2,6 +2,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { connectToMongoDB } from '../../utils/mongodb'
 
+export interface Hero {
+	_id: string
+	password: string
+}
+
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
 	// Get data from your database
 	const client = await connectToMongoDB()

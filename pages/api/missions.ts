@@ -5,6 +5,8 @@ import { connectToMongoDB } from '../../utils/mongodb'
 interface MissionData {
 	_id: number
 	description: string
+	isComplete: boolean
+	owners: string[]
 }
 
 const newMission = {

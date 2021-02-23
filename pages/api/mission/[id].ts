@@ -12,9 +12,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 	switch (method) {
 		case 'GET':
 			// Get data from your database
-			const query = { _id };
-			const getRes = await missions.findOne(query);
-			res.status(200).json({ _id, res: getRes || "no mission found." });
+			const query = { _id }
+			const getRes = await missions.findOne(query)
+			res.status(200).json({ _id, res: getRes || 'no mission found.' })
 			break
 		case 'POST':
 			// Update or create data in your database
