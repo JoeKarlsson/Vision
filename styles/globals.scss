@@ -14,3 +14,11 @@ a {
 * {
   box-sizing: border-box;
 }
+
+code {
+  background: #fafafa;
+  border-radius: 5px;
+  margin: 0.75rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
+    Bitstream Vera Sans Mono, Courier New, monospace;
+}

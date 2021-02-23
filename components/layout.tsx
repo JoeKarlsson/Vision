@@ -1,7 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 import Head from 'next/head'
+import { motion } from 'framer-motion'
 import styles from '../styles/layout.module.scss'
+import { QUOTES } from '../utils/quotes'
 
 type Props = {
 	title?: string
@@ -25,12 +27,12 @@ const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the
 				<Link href="/login">Login / Create Hero</Link>
 				<Link href="/about">About</Link>
 			</nav>
-			<hr />
 		</header>
 		<main className={styles.main}>{children}</main>
 		<footer className={styles.footer}>
-			<hr />
-			<span>I&apos;m here to stay (Footer)</span>
+			<motion.span animate={{ y: -10, transition: { duration: 1 } }}>
+				{QUOTES[Math.floor(Math.random() * QUOTES.length)]}
+			</motion.span>
 		</footer>
 	</div>
 )

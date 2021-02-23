@@ -1,0 +1,17 @@
+export const QUOTES = [
+	'Why do we fall? So we can learn to pick ourselves back up.',
+	'I believe there’s a hero in all of us, that keeps us honest, gives us strength, makes us noble, and finally allows us to die with pride. Even though sometimes we have to be steady, and give up the thing we want most. Even our dreams.',
+	'Listen, smile, agree, and then do whatever you were gonna do anyway.',
+	'No Matter how bad things get, something good is out there, over the horizon.',
+	'You’re much stronger than you think you are. Trust me.',
+	'There is a right and a wrong in the universe, and the distinction is not hard to make.',
+	'With great power, comes great responsibility.',
+	'I wear a mask, and that mask is not to hide who I am, but to create who I am.',
+	'The answers you seek shall be yours, once I claim what is mine.',
+	'Life doesn’t give us purpose. We give life purpose.',
+	'When you decide not to be afraid, you can find friends in super unexpected places.',
+	'The door is more than it appears. It separates who you are from who you can be. You do not have to walk through it.',
+	'You only have your thoughts and dreams ahead of you. You are someone. You mean something.',
+	'The future is worth it. All the pain. All the tears. The future is worth the fight.',
+	'The real crime would be not to finish what we started.',
+]

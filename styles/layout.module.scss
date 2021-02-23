@@ -2,6 +2,7 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  margin-bottom: 16px;
 }
 
 .nav > * {
@@ -37,6 +38,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: gray;
 }
 
 .footer img {
@@ -76,15 +78,6 @@
   font-size: 1.5rem;
 }
 
-.code {
-  background: #fafafa;
-  border-radius: 5px;
-  margin: 0.75rem;
-  font-size: 1.1rem;
-  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
-    Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
 .grid {
   display: flex;
   align-items: center;
@@ -97,6 +90,7 @@
 .header {
   width: 100%;
   margin: 16px;
+  border-bottom: 1px solid #eaeaea;
 }
 
 .card {

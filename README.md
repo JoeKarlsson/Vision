@@ -64,19 +64,19 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
   <tbody>
     <tr>
       <td align="center">
-        <img width="150 height="150"
+        <img width="150" height="150"
         src="https://avatars.githubusercontent.com/JoeKarlsson?v=3">
         <br />
         <a href="https://github.com/JoeKarlsson">Joe Karlsson</a>
       </td>
       <td align="center">
-        <img width="150 height="150"
+        <img width="150" height="150"
         src="https://avatars.githubusercontent.com/nbbeeken?v=3">
         <br />
         <a href="https://github.com/nbbeeken">Neal Beeken</a>
       </td>
     <tr>
-  <tbody>
+  </tbody>
 </table>
 
 ### License

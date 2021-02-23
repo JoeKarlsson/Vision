@@ -39,7 +39,7 @@ export default function Home({ isConnected, hero }) {
 				{data.map((hero, index) => (
 					<li key={index}>
 						{`Hero: `}
-						<code className={styles.code}>{JSON.stringify(hero)}</code>
+						<code>{JSON.stringify(hero)}</code>
 					</li>
 				))}
 			</ul>
