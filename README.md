@@ -17,7 +17,7 @@ cd Vision
 
 ### 2. Update Config
 
-Change `.env_EXAMPLE` to `.env` and paste in your MongoDB Atlas URI.
+Change `.env.local_EXAMPLE` to `.env.local` and paste in your MongoDB Atlas URI.
 
 ### 3. Install Dependencies
 

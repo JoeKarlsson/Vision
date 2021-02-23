@@ -10,18 +10,23 @@ import Layout from '../components/layout'
 
 const fetcher = async (url) => await (await fetch(url)).json()
 
-export default function Home({ isConnected, hero }) {
-	const { data, error } = useSwr<{ _id: number }[]>('/api/heroes', fetcher)
+export default function Home({ isConnected }) {
+	const { data: heroesData, error: heroesError } = useSwr('/api/heroes', fetcher)
+	const { data: missionsData, error: missionsError } = useSwr<{ _id: number }[]>('/api/missions', fetcher)
 
-	if (error) return <div>Failed to load hero</div>
-	if (!data) return <div>Loading...</div>
+	console.log(heroesData, missionsData)
+
+
+	if (heroesError || missionsError) return <div>Failed to load data `${heroesError}`</div>
+	if (!heroesData && !missionsData) return <div>Loading...</div>
+
 
 	return (
 		<Layout title="Home | Vision">
 			<h1 className={styles.title}>Vision 🦹‍♀️ 🦸 👋</h1>
-			{hero ? (
+			{heroesData ? (
 				<>
-					<h5>Logged in as {hero._id}</h5>
+					<h5>Logged in as {heroesData._id}</h5>
 					<button
 						onClick={async () => {
 							document.cookie = 'heroName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
@@ -35,12 +40,20 @@ export default function Home({ isConnected, hero }) {
 				<h5>It is nice to log in</h5>
 			)}
 
+			<h2 className={styles.title}>Hereos</h2>
 			<ul>
-				{data.map((hero, index) => (
+				{heroesData.map((hero, index) => (
 					<li key={index}>
 						{`Hero: `}
 						<code>{JSON.stringify(hero)}</code>
 					</li>
+				))}
+			</ul>
+			
+			<h2 className={styles.title}>Missions</h2>
+			<ul>
+				{(missionsData??[]).map((mission) => (
+					<li key={mission._id}>{`Mission ${mission._id}: ${mission.description}`}</li>
 				))}
 			</ul>
 
