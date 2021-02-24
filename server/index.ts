@@ -1,4 +1,3 @@
-//@ts-check
 import { createServer } from 'http'
 import { server as WebSocketServer } from 'websocket'
 import next from 'next'
@@ -18,15 +17,17 @@ app
 
 		const wsServer = new WebSocketServer({ httpServer, autoAcceptConnections: true })
 
-		client.db('vision')
+		const cs = client.db('vision').collection('missions').watch()
+
+		cs.on('change', (change) => {
+			wsServer.broadcastUTF(JSON.stringify(change))
+		})
 
 		wsServer.on('connect', (connection) => {
 			// var connection = request.accept('echo-protocol', request.origin)
 			console.log(new Date(), 'Connection accepted.')
-			connection.sendUTF(JSON.stringify({ hi: true }))
-
 			connection.on('close', (reasonCode, description) => {
-				console.log(new Date(), 'Peer ' + connection.remoteAddress + ' disconnected.')
+				console.log(new Date(), `Peer ${connection.remoteAddress} disconnected [${reasonCode}] - ${description}`)
 			})
 		})
 

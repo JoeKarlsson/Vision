@@ -4,12 +4,15 @@ import Head from 'next/head'
 import { motion } from 'framer-motion'
 import styles from '../styles/layout.module.scss'
 import { QUOTES } from '../utils/quotes'
+import Auth from './Auth'
+import { Hero } from '../pages/api/heroes'
 
 type Props = {
 	title?: string
+	hero: Hero
 }
 
-const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the default title' }) => (
+const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the default title', hero }) => (
 	<div className={styles.container}>
 		<Head>
 			<title>{title}</title>
@@ -24,8 +27,8 @@ const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the
 		<header className={styles.header}>
 			<nav className={styles.nav}>
 				<Link href="/">Home</Link>
-				<Link href="/login">Login / Create Hero</Link>
 				<Link href="/about">About</Link>
+				<Auth hero={hero} />
 			</nav>
 		</header>
 		<main className={styles.main}>{children}</main>
