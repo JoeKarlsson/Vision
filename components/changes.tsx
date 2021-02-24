@@ -4,7 +4,7 @@ import { w3cwebsocket as W3CWebSocket } from 'websocket'
 let client: W3CWebSocket
 
 /** Memoized client */
-function connectToWS(onMessage: (data: Record<string, any>) => void) {
+function connectToWS(onMessage: (data: Record<string, unknown>) => void) {
 	if (client) return client
 
 	client = new W3CWebSocket('ws://localhost:3000/')

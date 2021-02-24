@@ -18,7 +18,7 @@ const NewMission = () => {
 					Accept: "application/json"
 				}),
 				body: JSON.stringify({
-					description: data,
+					data,
 				})
 			});
 			return response.ok;

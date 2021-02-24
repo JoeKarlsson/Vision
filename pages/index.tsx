@@ -20,8 +20,6 @@ export default function Home({ isConnected, hero }) {
 	if (heroesError || missionsError) return <div>Failed to load data `${heroesError}`</div>
 	if (!heroesData && !missionsData) return <div>Loading...</div>
 
-	console.log(missionsData, heroesData)
-
 	return (
 		<Layout title="Home | Vision" hero={hero}>
 			<h1 className={styles.title}>Vision 🦹‍♀️ 🦸 👋</h1>
