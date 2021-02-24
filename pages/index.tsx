@@ -6,8 +6,7 @@ import { GetServerSideProps } from 'next'
 import Link from 'next/link'
 import useSwr from 'swr'
 import Layout from '../components/layout'
-import NewMission from '../components/NewMission'
-import { MissionData } from './api/missions'
+import Missions from '../components/Missions/Missions'
 import { Hero } from './api/heroes'
 import Changes from '../components/changes'
 
@@ -15,10 +14,9 @@ const fetcher = async (url) => await (await fetch(url)).json()
 
 export default function Home({ isConnected, hero }) {
 	const { data: heroesData, error: heroesError } = useSwr<Hero[]>('/api/heroes', fetcher)
-	const { data: missionsData, error: missionsError } = useSwr<MissionData[]>('/api/missions', fetcher)
 
-	if (heroesError || missionsError) return <div>Failed to load data `${heroesError}`</div>
-	if (!heroesData && !missionsData) return <div>Loading...</div>
+	if (heroesError) return <div>Failed to load data `${heroesError}`</div>
+	if (!heroesData) return <div>Loading...</div>
 
 	return (
 		<Layout title="Home | Vision" hero={hero}>
@@ -34,13 +32,7 @@ export default function Home({ isConnected, hero }) {
 				))}
 			</ul>
 
-			<h2 className={styles.title}>Missions</h2>
-			<NewMission />
-			<ul>
-				{(missionsData ?? []).map((mission) => (
-					<li key={mission._id}>{`Mission ${mission._id}: ${mission.description}`}</li>
-				))}
-			</ul>
+			{hero ? <Missions /> : <span>Please login to view your Missions</span>}
 
 			{isConnected ? (
 				<motion.div
