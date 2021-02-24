@@ -1,82 +1,59 @@
 import React from 'react'
 import styles from '../styles/layout.module.scss'
-import { motion } from 'framer-motion'
 import { connectToMongoDB } from '../utils/mongodb'
 import { GetServerSideProps } from 'next'
-import Link from 'next/link'
 import useSwr from 'swr'
 import Layout from '../components/layout'
 import NewMission from '../components/NewMission'
 import { MissionData } from './api/missions'
 import { Hero } from './api/heroes'
 import Changes from '../components/changes'
+import Code from '@leafygreen-ui/code'
 
 const fetcher = async (url) => await (await fetch(url)).json()
 
-export default function Home({ isConnected, hero }) {
-	const { data: heroesData, error: heroesError } = useSwr<Hero[]>('/api/heroes', fetcher)
-	const { data: missionsData, error: missionsError } = useSwr<MissionData[]>('/api/missions', fetcher)
+export default function Home({ hero }) {
+	const { data: missionsData = [], error: missionsError } = useSwr<MissionData[]>('/api/missions', fetcher)
 
-	if (heroesError || missionsError) return <div>Failed to load data `${heroesError}`</div>
-	if (!heroesData && !missionsData) return <div>Loading...</div>
+	if (missionsError) return <div>Failed to load data</div>
+	if (!missionsData) return <div>Loading...</div>
 
+	const heroJSON = JSON.stringify({ hero })
 	return (
 		<Layout title="Home | Vision" hero={hero}>
-			<h1 className={styles.title}>Vision 🦹‍♀️ 🦸 👋</h1>
+			<h1 className={styles.title}>🦹‍♀️ Vision 🦸</h1>
 
-			<h2 className={styles.title}>Heroes</h2>
-			<ul>
-				{(heroesData ?? []).map((hero, index) => (
-					<li key={index}>
-						{`Hero: `}
-						<code>{JSON.stringify(hero)}</code>
-					</li>
-				))}
-			</ul>
+			{hero ? (
+				<>
+					<h2 className={styles.title}>My Hero</h2>
+					<Code language="json" copyable={false}>
+						{heroJSON}
+					</Code>
+				</>
+			) : (
+				<h4 className={styles.title}>Welcome! Login to make missions</h4>
+			)}
 
 			<h2 className={styles.title}>Missions</h2>
 			<NewMission />
 			<ul>
-				{(missionsData ?? []).map((mission) => (
+				{missionsData.map((mission) => (
 					<li key={mission._id}>{`Mission ${mission._id}: ${mission.description}`}</li>
 				))}
 			</ul>
 
-			{isConnected ? (
-				<motion.div
-					className={styles.description}
-					initial="hidden"
-					animate="visible"
-					variants={{
-						hidden: { opacity: 0 },
-						visible: { opacity: 1 },
-					}}
-				>
-					You are connected to mongodb
-				</motion.div>
-			) : (
-				<span>Something went wrong connecting to mongodb</span>
-			)}
-
 			<Changes />
-
-			<p className={styles.description}>
-				Click to learn:
-				<Link href="/about">
-					<a> About</a>
-				</Link>
-			</p>
 		</Layout>
 	)
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const client = await connectToMongoDB()
+	const heroes = (await connectToMongoDB()).db('vision').collection('heroes')
 	let hero: Hero | null = null
 
 	if (req.cookies.heroName) {
 		console.log(`cookie is set to: ${JSON.stringify(req.cookies)}`)
-		hero = (await client.db('vision').collection('heroes').findOne({ _id: req.cookies.heroName })) as Hero
+		hero = (await heroes.findOne({ _id: req.cookies.heroName })) as Hero
 		if (hero) {
 			console.log(`User is logged in as ${JSON.stringify(hero)}`)
 		} else {
@@ -85,6 +62,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 		}
 	}
 	return {
-		props: { isConnected: client.isConnected(), hero },
+		props: { hero },
 	}
 }
