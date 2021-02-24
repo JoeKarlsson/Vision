@@ -4,7 +4,6 @@ import { motion } from 'framer-motion'
 import { connectToMongoDB } from '../utils/mongodb'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-import { server as WebSocketServer } from 'websocket'
 import useSwr from 'swr'
 import Layout from '../components/layout'
 import NewMission from '../components/NewMission'
@@ -22,23 +21,8 @@ export default function Home({ isConnected, hero }) {
 	if (!heroesData && !missionsData) return <div>Loading...</div>
 
 	return (
-		<Layout title="Home | Vision">
+		<Layout title="Home | Vision" hero={hero}>
 			<h1 className={styles.title}>Vision 🦹‍♀️ 🦸 👋</h1>
-			{hero ? (
-				<>
-					<h5>Logged in as {hero._id}</h5>
-					<button
-						onClick={async () => {
-							document.cookie = 'heroName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
-							location.reload()
-						}}
-					>
-						Logout
-					</button>
-				</>
-			) : (
-				<h5>It is nice to log in</h5>
-			)}
 
 			<h2 className={styles.title}>Heroes</h2>
 			<ul>
@@ -88,11 +72,11 @@ export default function Home({ isConnected, hero }) {
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	const client = await connectToMongoDB()
-	let hero = null
+	let hero: Hero | null = null
 
 	if (req.cookies.heroName) {
 		console.log(`cookie is set to: ${JSON.stringify(req.cookies)}`)
-		hero = await client.db('vision').collection('heroes').findOne({ _id: req.cookies.heroName })
+		hero = (await client.db('vision').collection('heroes').findOne({ _id: req.cookies.heroName })) as Hero
 		if (hero) {
 			console.log(`User is logged in as ${JSON.stringify(hero)}`)
 		} else {
