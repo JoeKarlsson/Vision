@@ -9,24 +9,39 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 		method,
 	} = req
 
+	console.log(req)
+
 	switch (method) {
 		case 'GET':
 			// Get data from your database
 			const query = { _id }
-			const getRes = await missions.findOne(query)
-			res.status(200).json({ _id, res: getRes || 'no mission found.' })
+			const mission = await missions.findOne(query)
+
+			if (!mission) {
+				// There was no matching mission
+				return res.status(404).json({ message: `Mission not found` })
+			}
+
+			res.status(200).json({ mission })
 			break
 		case 'POST':
-			// Update or create data in your database
-			const newMission = {
-				_id,
-				// description: 'Complete the super powered todo app, Vision, for the MongoDB 2021 Buildfest.',
-				description,
-				isComplete: false,
-				owners: ['Joe', 'Neal'],
+			// Update or create a mission in your database
+
+			try {
+				const newMission = {
+					description,
+					isComplete: false,
+					owners: ['Joe', 'Neal'],
+				}
+
+				const insertRes = await missions.insertOne(newMission)
+				console.log(insertRes)
+
+				res.status(200).json(insertRes)
+				return
+			} catch {
+				res.status(200).json({ _id: name, alreadyExists: true })
 			}
-			const insertRes = await missions.insertOne(newMission)
-			res.status(200).json({ ...newMission, insertRes })
 			break
 		default:
 			res.setHeader('Allow', ['GET', 'POST'])

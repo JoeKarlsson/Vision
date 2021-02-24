@@ -7,6 +7,7 @@ import Link from 'next/link'
 import { server as WebSocketServer } from 'websocket'
 import useSwr from 'swr'
 import Layout from '../components/layout'
+import NewMission from '../components/NewMission'
 import { MissionData } from './api/missions'
 import { Hero } from './api/heroes'
 import Changes from '../components/changes'
@@ -19,6 +20,8 @@ export default function Home({ isConnected, hero }) {
 
 	if (heroesError || missionsError) return <div>Failed to load data `${heroesError}`</div>
 	if (!heroesData && !missionsData) return <div>Loading...</div>
+
+	console.log(missionsData, heroesData)
 
 	return (
 		<Layout title="Home | Vision">
@@ -50,6 +53,7 @@ export default function Home({ isConnected, hero }) {
 			</ul>
 
 			<h2 className={styles.title}>Missions</h2>
+			<NewMission />
 			<ul>
 				{(missionsData ?? []).map((mission) => (
 					<li key={mission._id}>{`Mission ${mission._id}: ${mission.description}`}</li>
