@@ -1,12 +1,12 @@
 //@ts-check
 import { createServer } from 'http'
 import { server as WebSocketServer } from 'websocket'
-import { connectToMongoDB } from '../utils/mongodb'
 import next from 'next'
 
 const dev = process.env.NODE_ENV !== 'production'
 const app = next({ dev })
 const handle = app.getRequestHandler()
+import { connectToMongoDB } from '../utils/mongodb'
 
 app
 	.prepare()

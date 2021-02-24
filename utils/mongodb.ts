@@ -1,7 +1,6 @@
 import { MongoClient } from 'mongodb'
 
 const { MONGODB_URI = 'mongodb://localhost:27017' } = process.env
-
 /**
  * Global is used here to maintain a cached connection across hot reloads
  * in development. This prevents connections growing exponentially
