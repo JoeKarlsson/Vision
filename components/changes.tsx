@@ -33,7 +33,7 @@ const Changes: React.FC = () => {
 	const [changes, setChanges] = useState([])
 	useEffect(() => {
 		connectToWS((data) => {
-			console.log('Received: ', data)
+			// console.log('Received: ', data)
 		})
 	})
 

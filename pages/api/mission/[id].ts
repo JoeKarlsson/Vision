@@ -24,27 +24,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
 
 			res.status(200).json({ mission })
 			break
-		case 'POST':
-			// Update or create a mission in your database
-
-			try {
-				const newMission = {
-					description,
-					isComplete: false,
-					owners: ['Joe', 'Neal'],
-				}
-
-				const insertRes = await missions.insertOne(newMission)
-				console.log(insertRes)
-
-				res.status(200).json(insertRes)
-				return
-			} catch {
-				res.status(200).json({ _id: name, alreadyExists: true })
-			}
-			break
 		default:
-			res.setHeader('Allow', ['GET', 'POST'])
+			res.setHeader('Allow', ['GET'])
 			res.status(405).end(`Method ${method} Not Allowed`)
 	}
 }
