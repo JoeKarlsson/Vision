@@ -11,13 +11,17 @@ app
 	.prepare()
 	.then(() => connectToMongoDB())
 	.then((client) => {
+		const heroes = client.db('vision').collection('heroes')
+		const missions = client.db('vision').collection('missions')
+
 		const httpServer = createServer(async (req, res) => {
+			Reflect.set(req, 'mdb', { client, missions, heroes })
 			handle(req, res)
 		})
 
 		const wsServer = new WebSocketServer({ httpServer, autoAcceptConnections: true })
 
-		const cs = client.db('vision').collection('missions').watch()
+		const cs = missions.watch()
 
 		cs.on('change', (change) => {
 			wsServer.broadcastUTF(JSON.stringify(change))

@@ -2,5 +2,9 @@
     "editor.codeActionsOnSave": {
         "source.fixAll.eslint": true
     },
-    "editor.renderWhitespace": "selection"
+    "editor.renderWhitespace": "selection",
+    "cSpell.words": [
+        "cwebsocket",
+        "leafygreen"
+    ]
 }

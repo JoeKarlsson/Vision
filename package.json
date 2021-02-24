@@ -16,6 +16,9 @@
 		"url": "git@github.com:JoeKarlsson/Vision.git"
 	},
 	"dependencies": {
+		"@leafygreen-ui/button": "^10.0.1",
+		"@leafygreen-ui/code": "^8.0.6",
+		"@leafygreen-ui/text-input": "^5.0.8",
 		"framer-motion": "^3.6.7",
 		"mongodb": "^4.0.0-beta.1",
 		"next": "10.0.7",
