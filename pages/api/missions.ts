@@ -26,8 +26,8 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 	const client = await connectToMongoDB()
 	try {
 		// just a test to prove DB access
-		console.log(await client.db('vision').collection('missions').insertOne(newMission))
-		console.log(await client.db('vision').collection('missions').removeOne(newMission))
+		await client.db('vision').collection('missions').insertOne(newMission)
+		await client.db('vision').collection('missions').removeOne(newMission)
 	} catch (e) {
 		console.log(e)
 	}

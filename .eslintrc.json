@@ -39,5 +39,13 @@
         "react": {
             "version": "17.0.1"
         }
-    }
+    },
+    "overrides": [
+        {
+            "files": "server/*.js",
+            "rules": {
+                "@typescript-eslint/no-var-requires": "off"
+            }
+        }
+    ]
 }

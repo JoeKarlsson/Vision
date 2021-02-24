@@ -4,11 +4,12 @@ import { motion } from 'framer-motion'
 import { connectToMongoDB } from '../utils/mongodb'
 import { GetServerSideProps } from 'next'
 import Link from 'next/link'
-
+import { server as WebSocketServer } from 'websocket'
 import useSwr from 'swr'
 import Layout from '../components/layout'
 import { MissionData } from './api/missions'
 import { Hero } from './api/heroes'
+import Changes from '../components/changes'
 
 const fetcher = async (url) => await (await fetch(url)).json()
 
@@ -40,7 +41,7 @@ export default function Home({ isConnected, hero }) {
 
 			<h2 className={styles.title}>Heroes</h2>
 			<ul>
-				{heroesData.map((hero, index) => (
+				{(heroesData ?? []).map((hero, index) => (
 					<li key={index}>
 						{`Hero: `}
 						<code>{JSON.stringify(hero)}</code>
@@ -70,6 +71,8 @@ export default function Home({ isConnected, hero }) {
 			) : (
 				<span>Something went wrong connecting to mongodb</span>
 			)}
+
+			<Changes />
 
 			<p className={styles.description}>
 				Click to learn:
