@@ -1,10 +1,8 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { connectToMongoDB } from '../../utils/mongodb'
+import { NextReq, NextRes } from '../../utils/mongodb'
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(req: NextReq, res: NextRes) {
 	// Get data from your database
-	const client = await connectToMongoDB()
-	const heroesCollection = client.db('vision').collection('heroes')
+	const heroesCollection = req.mdb.heroes
 	const { name, password } = req.body
 
 	if (typeof name !== 'string' || name.length === 0) {

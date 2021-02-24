@@ -23,6 +23,7 @@ function connectToWS(onMessage: (data: Record<string, unknown>) => void) {
 
 	client.onmessage = (e) => {
 		const data = Object.assign(Object.create(null), JSON.parse(e.data as string))
+		console.log('Received: ', data)
 		onMessage(data)
 	}
 
@@ -33,7 +34,6 @@ const Changes: React.FC = () => {
 	const [changes, setChanges] = useState([])
 	useEffect(() => {
 		connectToWS((data) => {
-			console.log('Received: ', data)
 			setChanges([...changes, data])
 		})
 	})

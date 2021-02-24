@@ -10,7 +10,7 @@ const Auth: React.FC<{ hero: Hero }> = ({ hero }) => {
 			<div>
 				<span>Logged in as {hero._id}</span>
 				<Button
-					onClick={async () => {
+					onClick={() => {
 						document.cookie = 'heroName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 						location.reload()
 					}}
@@ -23,8 +23,10 @@ const Auth: React.FC<{ hero: Hero }> = ({ hero }) => {
 		// Logged out
 		return (
 			<form action="api/login" method="POST">
-				<TextInput label="🦸" name="name" type="text" placeholder="Your hero name..."></TextInput>
-				<TextInput label="🔐" name="password" type="text" placeholder="Your hero password..."></TextInput>
+				<label htmlFor="name">🦸 </label>
+				<input name="name" type="text" placeholder="Your hero name..."></input>
+				<label htmlFor="password">🔐 </label>
+				<input name="password" type="text" placeholder="Your hero password..."></input>
 				<Button type="submit">Login!</Button>
 			</form>
 		)

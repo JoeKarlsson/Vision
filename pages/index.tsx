@@ -37,8 +37,8 @@ export default function Home({ hero }) {
 			<h2 className={styles.title}>Missions</h2>
 			<NewMission />
 			<ul>
-				{missionsData.map((mission) => (
-					<li key={mission._id}>{`Mission ${mission._id}: ${mission.description}`}</li>
+				{missionsData.map((mission, index) => (
+					<li key={mission._id}>{`Mission ${index + 1}: ${mission.description}`}</li>
 				))}
 			</ul>
 
@@ -48,7 +48,10 @@ export default function Home({ hero }) {
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ req }) => {
-	const heroes = (await connectToMongoDB()).db('vision').collection('heroes')
+	// eslint-disable-next-line @typescript-eslint/ban-ts-comment
+	//@ts-expect-error
+	const heroes = req.mdb.heroes
+
 	let hero: Hero | null = null
 
 	if (req.cookies.heroName) {

@@ -1,6 +1,5 @@
 // Fake heroes data
-import type { NextApiRequest, NextApiResponse } from 'next'
-import { connectToMongoDB } from '../../utils/mongodb'
+import { NextReq, NextRes } from '../../utils/mongodb'
 
 export interface MissionData {
 	_id: number
@@ -9,9 +8,8 @@ export interface MissionData {
 	owners: string[]
 }
 
-export default async function handler(req: NextApiRequest, res: NextApiResponse) {
-	const client = await connectToMongoDB()
-	const missionsCollection = client.db('vision').collection('missions')
+export default async function handler(req: NextReq, res: NextRes) {
+	const missionsCollection = req.mdb.missions
 	const {
 		query: { _id },
 		body,
