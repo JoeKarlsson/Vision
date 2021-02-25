@@ -22,10 +22,9 @@ async function main(args) {
 	const heroNames = (await heroes.find({}).toArray()).map(({ _id }) => _id)
 
 	const missionsToInsert = []
-	for (let i = 0; i < 20 - currentMissionCount; i++) {
+	for (let i = 0; i < 5 - currentMissionCount; i++) {
 		missionsToInsert.push({
-			_id: i,
-			description: faker.lorem.words(10),
+			description: faker.lorem.words(5),
 			isComplete: false,
 			owners: [
 				...new Set([

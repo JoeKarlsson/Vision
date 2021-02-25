@@ -6,15 +6,12 @@ export interface MissionData {
 	description: string
 	isComplete: boolean
 	owners: string[]
+	completedBy?: string
 }
 
 export default async function handler(req: NextReq, res: NextRes) {
 	const missionsCollection = req.mdb.missions
-	const {
-		query: { _id },
-		body,
-		method,
-	} = req
+	const { body, method } = req
 
 	switch (method) {
 		case 'GET':

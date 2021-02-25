@@ -14,7 +14,7 @@ export default function Home({ hero }) {
 
 			{hero ? <Profile hero={hero} /> : <h4 className={styles.title}>Welcome! Login to make missions</h4>}
 
-			{hero ? <Missions /> : <span>Please login to view your Missions</span>}
+			{hero ? <Missions hero={hero} /> : <span>Please login to view your Missions</span>}
 
 			<Changes />
 		</Layout>

@@ -4,10 +4,11 @@ import useSwr from 'swr'
 import { MissionData } from '../../pages/api/missions'
 import NewMission from './NewMission'
 import Mission from './Mission'
+import { Hero } from '../../pages/api/heroes'
 
 const fetcher = async (url) => await (await fetch(url)).json()
 
-const Missions = () => {
+const Missions: React.FC<{ hero: Hero }> = ({ hero }) => {
 	const { data: missionsData = [], error: missionsError } = useSwr<MissionData[]>('/api/missions', fetcher)
 
 	if (missionsError) return <div>Failed to load your Missions `${missionsError}`</div>
@@ -19,7 +20,7 @@ const Missions = () => {
 			<NewMission />
 			<ul>
 				{missionsData.map((mission) => (
-					<Mission key={mission._id} mission={mission} />
+					<Mission key={mission._id} hero={hero} mission={mission} />
 				))}
 			</ul>
 		</div>
