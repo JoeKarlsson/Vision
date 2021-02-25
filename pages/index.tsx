@@ -39,7 +39,6 @@ export const getServerSideProps: GetServerSideProps = async ({ req }) => {
 	let hero: Hero | null = null
 
 	if (req.cookies.heroName) {
-		console.log(`cookie is set to: ${JSON.stringify(req.cookies)}`)
 		hero = (await heroes.findOne({ _id: req.cookies.heroName })) as Hero
 		if (hero) {
 			console.log(`User is logged in as ${JSON.stringify(hero)}`)

@@ -1,4 +1,3 @@
-import type { NextApiRequest, NextApiResponse } from 'next'
 import { NextReq, NextRes } from '../../../utils/mongodb'
 
 export default async function handler(req: NextReq, res: NextRes) {

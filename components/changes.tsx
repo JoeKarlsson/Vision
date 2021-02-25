@@ -1,10 +1,11 @@
-import { useEffect, useState } from 'react'
+import { useToasts } from 'react-toast-notifications'
 import { w3cwebsocket as W3CWebSocket } from 'websocket'
 
 let client: W3CWebSocket
 
 /** Memoized client */
-function connectToWS(onMessage: (data: Record<string, unknown>) => void) {
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+function connectToWS(onMessage: (data: Record<string, any>) => void) {
 	if (client) return client
 
 	client = new W3CWebSocket('ws://localhost:3000/')
@@ -18,12 +19,13 @@ function connectToWS(onMessage: (data: Record<string, unknown>) => void) {
 	}
 
 	client.onclose = () => {
-		console.log('echo-protocol Client Closed')
+		console.log('Client Closed')
 	}
 
 	client.onmessage = (e) => {
-		const data = Object.assign(Object.create(null), JSON.parse(e.data as string))
-		console.log('Received: ', data)
+		let data = JSON.parse(e.data as string)
+		if (data) data = Object.assign(Object.create(null), data)
+		// console.log('Received: ', data)
 		onMessage(data)
 	}
 
@@ -31,32 +33,31 @@ function connectToWS(onMessage: (data: Record<string, unknown>) => void) {
 }
 
 const Changes: React.FC = () => {
-	const [changes, setChanges] = useState([])
-	useEffect(() => {
-		connectToWS((data) => {
-			setChanges([...changes, data])
-		})
+	const { addToast } = useToasts()
+	connectToWS((data) => {
+		if (data.operationType === 'insert') {
+			addToast(`${data.fullDocument.owners[0]} added a new mission: ${data.fullDocument.description}`, {
+				appearance: 'warning',
+				autoDismiss: true,
+			})
+		}
+		if (data.operationType === 'update') {
+			if (typeof data.updateDescription?.updatedFields?.isComplete === 'boolean') {
+				const completed = data.updateDescription?.updatedFields?.isComplete
+				addToast(
+					`${data.fullDocument.owners[0]} just  ${completed ? 'finished' : 'unfinished'} a mission ${
+						data.fullDocument.description
+					}`,
+					{
+						appearance: 'info',
+						autoDismiss: true,
+					}
+				)
+			}
+		}
 	})
 
-	return (
-		<>
-			<h3>Live Mission feed</h3>
-			<ul>
-				{changes.map((c, i) => (
-					<li key={i}>
-						<span>ns:</span>
-						<code>
-							{c.ns.db}.{c.ns.coll}
-						</code>
-						<span>op:</span>
-						<code>{c.operationType}</code>
-						<span>doc:</span>
-						<code>{JSON.stringify(c.fullDocument)}</code>
-					</li>
-				))}
-			</ul>
-		</>
-	)
+	return <></>
 }
 
 export default Changes

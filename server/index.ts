@@ -23,13 +23,14 @@ app
 
 		const cs = missions.watch()
 
-		cs.on('change', (change) => {
+		cs.on('change', async (change) => {
+			if (change.operationType === 'update')
+				change.fullDocument = await missions.findOne({ _id: change.documentKey._id })
+
 			wsServer.broadcastUTF(JSON.stringify(change))
 		})
 
 		wsServer.on('connect', (connection) => {
-			// var connection = request.accept('echo-protocol', request.origin)
-			console.log(new Date(), 'Connection accepted.')
 			connection.on('close', (reasonCode, description) => {
 				console.log(new Date(), `Peer ${connection.remoteAddress} disconnected [${reasonCode}] - ${description}`)
 			})

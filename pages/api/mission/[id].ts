@@ -1,13 +1,14 @@
+import { ObjectId } from 'mongodb'
 import { NextReq, NextRes } from '../../../utils/mongodb'
 
 export default async function handler(req: NextReq, res: NextRes) {
 	const missions = req.mdb.missions
 	const {
-		query: { _id, description },
+		query: { id },
 		method,
 	} = req
 
-	console.log(req)
+	const _id = new ObjectId(id)
 
 	switch (method) {
 		case 'GET':
@@ -22,6 +23,12 @@ export default async function handler(req: NextReq, res: NextRes) {
 
 			res.status(200).json({ mission })
 			break
+		case 'POST': {
+			const query = { _id }
+			const { isComplete } = JSON.parse(await req.body)
+			res.status(200).json(await missions.findOneAndUpdate(query, { $set: { isComplete } }))
+			break
+		}
 		case 'DELETE':
 			// Delete mission from your database
 			query = { _id }
@@ -35,7 +42,7 @@ export default async function handler(req: NextReq, res: NextRes) {
 			res.status(200).json({ mission })
 			break
 		default:
-			res.setHeader('Allow', ['GET', 'DELETE'])
+			res.setHeader('Allow', ['GET', 'POST', 'DELETE'])
 			res.status(405).end(`Method ${method} Not Allowed`)
 	}
 }
