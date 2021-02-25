@@ -26,7 +26,7 @@ const Layout: React.FunctionComponent<Props> = ({ children, title = 'This is the
 		</Head>
 		<header className={styles.header}>
 			<nav className={styles.nav}>
-				<Link href="/">Home</Link>
+				<Link href="/">🦹‍♀️ Vision 🦸</Link>
 				<Link href="/about">About</Link>
 				<Auth hero={hero} />
 			</nav>

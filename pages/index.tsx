@@ -5,24 +5,14 @@ import Layout from '../components/layout'
 import Missions from '../components/Missions/Missions'
 import { Hero } from './api/heroes'
 import Changes from '../components/changes'
-import Code from '@leafygreen-ui/code'
+import { Profile } from '../components/profile'
 
 export default function Home({ hero }) {
-	const heroJSON = JSON.stringify({ hero })
 	return (
 		<Layout title="Home | Vision" hero={hero}>
-			<h1 className={styles.title}>🦹‍♀️ Vision 🦸</h1>
+			{/* <h1 className={styles.title}></h1> */}
 
-			{hero ? (
-				<>
-					<h2 className={styles.title}>My Hero</h2>
-					<Code language="json" copyable={false}>
-						{heroJSON}
-					</Code>
-				</>
-			) : (
-				<h4 className={styles.title}>Welcome! Login to make missions</h4>
-			)}
+			{hero ? <Profile hero={hero} /> : <h4 className={styles.title}>Welcome! Login to make missions</h4>}
 
 			{hero ? <Missions /> : <span>Please login to view your Missions</span>}
 

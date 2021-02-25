@@ -1,6 +1,5 @@
 import React from 'react'
 import { Hero } from '../pages/api/heroes'
-import TextInput from '@leafygreen-ui/text-input'
 import Button from '@leafygreen-ui/button'
 
 const Auth: React.FC<{ hero: Hero }> = ({ hero }) => {
@@ -8,8 +7,8 @@ const Auth: React.FC<{ hero: Hero }> = ({ hero }) => {
 		// Logged in
 		return (
 			<div>
-				<span>Logged in as {hero._id}</span>
 				<Button
+					variant="primary"
 					onClick={() => {
 						document.cookie = 'heroName=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;'
 						location.reload()

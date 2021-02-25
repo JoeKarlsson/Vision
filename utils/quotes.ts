@@ -1,6 +1,6 @@
 export const QUOTES = [
 	'Why do we fall? So we can learn to pick ourselves back up.',
-	'I believe there’s a hero in all of us, that keeps us honest, gives us strength, makes us noble, and finally allows us to die with pride. Even though sometimes we have to be steady, and give up the thing we want most. Even our dreams.',
+	// 'I believe there’s a hero in all of us, that keeps us honest, gives us strength, makes us noble, and finally allows us to die with pride. Even though sometimes we have to be steady, and give up the thing we want most. Even our dreams.',
 	'Listen, smile, agree, and then do whatever you were gonna do anyway.',
 	'No Matter how bad things get, something good is out there, over the horizon.',
 	'You’re much stronger than you think you are. Trust me.',

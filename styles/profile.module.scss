@@ -1,0 +1,20 @@
+.profile {
+    display: flex;
+    justify-content: space-between;
+    width: 150%;
+    border: 1px dotted lightgreen;
+    padding: 16px;
+}
+
+.profile > img {
+    border-radius: 50%;
+}
+
+.label {
+    font-weight: bold;
+    font-family: cursive;
+}
+
+.data {
+    font-style: italic;
+}

@@ -1,3 +1,4 @@
+import Button from '@leafygreen-ui/button'
 import React from 'react'
 import { useForm } from 'react-hook-form'
 
@@ -35,7 +36,7 @@ const NewMission = () => {
 					<div className="error">Your must enter your Mission.</div>
 				)}
 			</div>
-			<button type="submit">Save</button>
+			<Button type="submit">Save</Button>
 		</form>
 	)
 }
