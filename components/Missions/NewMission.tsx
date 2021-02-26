@@ -1,15 +1,17 @@
 import Button from '@leafygreen-ui/button'
 import React from 'react'
 import { useForm } from 'react-hook-form'
+import { Hero } from '../../pages/api/heroes'
 
 type Mission = {
 	description: string
 }
 
-const NewMission = () => {
+const NewMission: React.FC<{ hero: Hero }> = ({ hero }) => {
 	const { register, handleSubmit, errors } = useForm<Mission>()
 
 	const onSubmit = async (data: Mission) => {
+		Reflect.set(data, 'owner', hero._id)
 		try {
 			const response = await fetch('/api/missions', {
 				method: 'POST',

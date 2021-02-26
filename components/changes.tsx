@@ -36,7 +36,7 @@ const Changes: React.FC = () => {
 	const { addToast } = useToasts()
 	connectToWS((data) => {
 		if (data.operationType === 'insert') {
-			addToast(`${data.fullDocument.owners[0]} added a new mission: ${data.fullDocument.description}`, {
+			addToast(`${data.fullDocument.owner} added a new mission: ${data.fullDocument.description}`, {
 				appearance: 'warning',
 				autoDismiss: true,
 			})
@@ -45,7 +45,7 @@ const Changes: React.FC = () => {
 			if (typeof data.updateDescription?.updatedFields?.isComplete === 'boolean') {
 				const completed = data.updateDescription?.updatedFields?.isComplete
 				addToast(
-					`${data.fullDocument.owners[0]} just  ${completed ? 'finished' : 'unfinished'} a mission ${
+					`${data.fullDocument.completedBy} just  ${completed ? 'finished' : 'unfinished'} a mission ${
 						data.fullDocument.description
 					}`,
 					{

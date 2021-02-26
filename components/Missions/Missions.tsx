@@ -12,12 +12,12 @@ const Missions: React.FC<{ hero: Hero }> = ({ hero }) => {
 	const { data: missionsData = [], error: missionsError } = useSwr<MissionData[]>('/api/missions', fetcher)
 
 	if (missionsError) return <div>Failed to load your Missions `${missionsError}`</div>
-	if (missionsData.length === 0) return <div>Loading...</div>
+	// if (missionsData.length === 0) return <div>Loading...</div>
 
 	return (
 		<div>
 			<h2 className={styles.title}>Missions</h2>
-			<NewMission />
+			<NewMission hero={hero} />
 			<ul>
 				{missionsData.map((mission) => (
 					<Mission key={mission._id} hero={hero} mission={mission} />

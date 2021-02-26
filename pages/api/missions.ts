@@ -32,6 +32,7 @@ export default async function handler(req: NextReq, res: NextRes) {
 				const newMission = {
 					description: body.data.description,
 					isComplete: false,
+					owner: body.data.owner,
 					owners: ['Joe', 'Neal'],
 				}
 				const insertRes = await missionsCollection.insertOne(newMission)
